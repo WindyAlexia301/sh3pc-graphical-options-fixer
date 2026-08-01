@@ -1,0 +1,51 @@
+SH3GraphicsSaver.asi
+====================
+Saves / forces "Real-Time Shadow" and "Lens Flare Quality" in Silent Hill 3.
+
+WHAT IT IS
+----------
+A plugin (.asi) for the Ultimate ASI Loader that is already installed with
+this game (the dinput8.dll next to sh3.exe). Every time the game starts,
+the plugin writes your chosen values into:
+
+    savedata\disp.ini
+        shadow           -> "Real-Time Shadow"    (1 = ON,  0 = OFF)
+        lensflare_ztest  -> "Lens Flare Quality"  (1 = Detail, 0 = Fast)
+
+...BEFORE the game reads that file, so the two options no longer reset.
+It does not hook or patch the game in memory - it only edits a text file,
+so it's safe and can't break anything.
+
+FILES (already placed next to sh3.exe)
+--------------------------------------
+    SH3GraphicsSaver.asi   <- the plugin (loaded automatically)
+    SH3GraphicsSaver.ini   <- your settings (edit this)
+
+HOW TO USE
+----------
+1. Just start the game normally (sh3.exe). The plugin loads automatically
+   through the existing dinput8.dll ASI loader.
+2. To change the values, open SH3GraphicsSaver.ini in Notepad:
+
+       [Graphics]
+       Shadow=1        ; 1 = ON,     0 = OFF
+       LensFlare=1     ; 1 = Detail, 0 = Fast
+
+   Save it and launch the game. Done.
+
+REBUILDING FROM SOURCE (optional)
+---------------------------------
+Source is in the "SH3GraphicsSaver" folder:
+    dllmain.cpp     - the plugin source
+    build_asi.bat   - double-click to rebuild with Visual Studio 2019
+                      (needs the "Desktop development with C++" workload).
+The build was already tested: it produces a 32-bit SH3GraphicsSaver.asi
+and copies it + the .ini next to sh3.exe.
+
+NOTES
+-----
+- If you don't want to use the plugin, you can instead run
+  "Launch SH3 (Save Graphics).bat" (a simpler launcher that does the same
+  thing without any .asi), or just edit savedata\disp.ini by hand.
+- If the ASI loader ever ignores the plugin, make sure dinput8.dll is
+  still present next to sh3.exe.
